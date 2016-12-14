@@ -10,6 +10,9 @@
 # in this code, characters a-z & space is allowed
 # code starts here
 
+# imports
+from random import randrange
+
 # returns 0 if the number is prime , returns 1 otherwise
 def checkPrime ( num ):
 	if num < 2:
@@ -28,6 +31,14 @@ def getBlockSize ( num ):
 		series = series + pow(27,size)
 	return size-1
 
+# euclid's algorithm to compute gcd of two numbers
+def gcd (a, b):
+	if b == 0 :
+		return a
+	else :
+		return gcd(b,a%b)	
+
+
 # main code execution begins here
 # get 2 prime numbers & make sure they are prime
 notPrime = 1
@@ -43,8 +54,13 @@ while(notPrime):
 n = p * q
 phi = (p-1) * (q-1)
 
+#get a random number e such that 1<e<phi, but gcd(e,phi) == 1
+e = randrange(1,phi)
+while gcd (e, phi) != 1 :
+	e = randrange(1,phi)
+print (e)
+
 # compute suitable blocksize
 blockSize = getBlockSize(n)
 if blockSize < 1 :
 	exit()
-print (blockSize)
