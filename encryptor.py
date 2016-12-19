@@ -31,16 +31,13 @@ def encrypt(plainText,privateKey,divisorKey,blockSize):
 	while i < lenPlainText:
 		copyBlockSize = blockSize
 		numBuff = 0
-		x = 0
 		while copyBlockSize > 0:
 			if copyBlockSize == blockSize:
 				numBuff = plainText[i]
 			else:	
 				numBuff = numBuff + plainText[i] * 27 ** (blockSize - copyBlockSize)
-			print (blockSize -copyBlockSize)
 			copyBlockSize = copyBlockSize - 1
 			i = i + 1
-		print (numBuff)
 		numBuff = squareAndMultiply(numBuff,privateKey,divisorKey)
 		cipherText.append(numBuff)
 	return cipherText		
@@ -57,4 +54,5 @@ for i in range(padding):
 	plainText.append(26)
 #plainText is ready to be encrypted
 cipherText = encrypt(plainText,privateKey,divisorKey,blockSize)
+print ("Your CipherText : ")
 print (cipherText)
