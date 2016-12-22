@@ -29,7 +29,7 @@ def getBlockSize ( num ):
 	series = 0
 	while num - series > 0 :
 		size = size + 1
-		series = series + pow(27,size)
+		series = series + pow(95,size)
 	return size-1
 
 # euclid's algorithm to compute gcd of two numbers

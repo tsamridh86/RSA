@@ -21,9 +21,9 @@ def decrypt( cipherText, publicKey, divisorKey , blockSize):
 		numArr = []
 		numBuff = squareAndMultiply(cipherText[i],publicKey,divisorKey)
 		while copyBlockSize > 0:
-			numArr.append(numBuff%27)
+			numArr.append(numBuff%96)
 			copyBlockSize = copyBlockSize - 1
-			numBuff = numBuff // 27
+			numBuff = numBuff // 96
 		for j in range(blockSize):
 			plainText.append(numArr[j])
 		i = i + 1
@@ -33,10 +33,7 @@ def decrypt( cipherText, publicKey, divisorKey , blockSize):
 def convertIntoText( numericText ):
 	string = []
 	for number in numericText:
-		if number == 26 :
-			string.append(chr(32))
-		else:
-			string.append(chr(number+97))
+		string.append(chr(number+32))
 	string = ''.join(string)
 	return string
 

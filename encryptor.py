@@ -2,13 +2,9 @@
 
 # convert into numbers
 def convertToNumber ( string ):
-	string = string.lower()
 	numberText = []
 	for letter in string:
-		if ord(letter) == 32:
-			numberText.append(26)
-		else :
-			numberText.append(ord(letter)-97)
+		numberText.append(ord(letter)-32)
 	return numberText
 
 #square and multiply method returns
@@ -35,7 +31,7 @@ def encrypt(plainText,privateKey,divisorKey,blockSize):
 			if copyBlockSize == blockSize:
 				numBuff = plainText[i]
 			else:	
-				numBuff = numBuff + plainText[i] * 27 ** (blockSize - copyBlockSize)
+				numBuff = numBuff + plainText[i] * 96 ** (blockSize - copyBlockSize)
 			copyBlockSize = copyBlockSize - 1
 			i = i + 1
 		numBuff = squareAndMultiply(numBuff,privateKey,divisorKey)
@@ -51,7 +47,7 @@ blockSize = int(input("Enter your preferred blockSize : "))
 plainText = convertToNumber(plainText)
 padding = len(plainText) % blockSize
 for i in range(padding):
-	plainText.append(26)
+	plainText.append(32)
 #plainText is ready to be encrypted
 cipherText = encrypt(plainText,privateKey,divisorKey,blockSize)
 print ("Your CipherText : ")
