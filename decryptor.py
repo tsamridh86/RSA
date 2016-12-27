@@ -1,16 +1,5 @@
 # this code converts cipher text into msg & displays it to the user
 
-#square and multiply method returns
-# x = a^b mod n
-def squareAndMultiply( base , exponent , divisor ):
-	exponent = bin(exponent)[2:]
-	d = 1
-	for i in exponent:
-		d = (d * d) % divisor
-		if i == '1':
-			d = (d * base) % divisor
-	return d
-
 # this functions converts the cipherText into number format plainText
 def decrypt( cipherText, publicKey, divisorKey , blockSize):
 	i = 0
@@ -19,7 +8,7 @@ def decrypt( cipherText, publicKey, divisorKey , blockSize):
 	while i < lenCipherText:
 		copyBlockSize = blockSize
 		numArr = []
-		numBuff = squareAndMultiply(cipherText[i],publicKey,divisorKey)
+		numBuff = pow(cipherText[i],publicKey,divisorKey)
 		while copyBlockSize > 0:
 			numArr.append(numBuff%96)
 			copyBlockSize = copyBlockSize - 1
@@ -37,13 +26,10 @@ def convertIntoText( numericText ):
 	string = ''.join(string)
 	return string
 
-#take input from the use, stop when a -ve number is inserted
-cipherText = []
-getInput = 1
-while getInput > 0 :
-	getInput = int(input("Enter cipherText (-ve number to stop input) : "))
-	cipherText.append(getInput)
-cipherText.pop()
+#take input from the cipherText.txt 
+cipherTextFile = open("cipherText.txt","r")
+cipherText = [int(x.strip("\n")) for x in cipherTextFile.readlines()]
+cipherTextFile.close()
 publicKey = int(input("Enter public key : "))
 divisorKey = int(input("Enter divisor key : "))
 blockSize = int(input("Enter preffered blockSize : "))
@@ -51,3 +37,6 @@ plainText = decrypt(cipherText,publicKey,divisorKey,blockSize)
 plainText = convertIntoText(plainText)
 print ("Your PlainText : ")
 print (plainText)
+plainTextFile = open("plainText.txt","w")
+plainTextFile.write(plainText)
+plainTextFile.close()
